@@ -23,6 +23,8 @@ const Tasks = () => {
         
     }, [])
 
+
+
     useEffect(()=>{
         setJobTime(Date.now())
     }, [])
@@ -70,7 +72,7 @@ const Tasks = () => {
                 console.log(file)
                 break   
             default:
-                setHead()
+                setHead('')
         }
     }
    
