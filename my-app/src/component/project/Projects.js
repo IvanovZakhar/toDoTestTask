@@ -2,15 +2,14 @@
 
 import './Projects.css'
 
-const Projects = (data, prop) => {
+const Projects = (props) => {
+   
+    const {data, onItem} = props;
 
-    
-
-      const element = data.data.map(item => {
-        console.log(item)
+      const element = data.map(item => {
         const {projectName, id} = item
         return(
-            <div className="project-item" key={id} onClick={(e)=>prop.onItem(e.target)}>
+            <div className="project-item" key={id} onClick={()=>onItem(id)}>
                 {projectName}
             </div>
         )

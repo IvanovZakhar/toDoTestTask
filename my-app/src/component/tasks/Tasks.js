@@ -4,7 +4,10 @@ import './Tasks.css'
 
 
 
-const Tasks = () => {
+const Tasks = (props) => {
+    const [data, setData] = useState([
+
+    ])
 
     const [numberTask, setNumberTask] = useState('')
     const [head, setHead] = useState('')
@@ -13,7 +16,6 @@ const Tasks = () => {
     const [jobTime, setJobTime] = useState('')
     const [dateEnd, setDateEnd] = useState('')
     const [file, setFile] = useState('')
-
 
     useEffect(()=>{
         setNumberTask(localStorage.getItem('numberTask'))
@@ -26,21 +28,35 @@ const Tasks = () => {
 
 
     useEffect(()=>{
-        setJobTime(Date.now())
-    }, [])
+       if( props.data[0]){
+        const {tasks} = props.data[0]
+        setData(tasks)
+        console.log(data)
+       }
+       
+    
+    }, [props])
+
+    const onData = (e) => {
+        const newData = data.map(item => {
+            console.log(item)
+           return item.numberTask 
+        })
+        setData([
+            newData
+        ])
+    }   
+
 
     const onChange = (e) => {
-        
+
         const eventClassName = e.target.className
         switch(eventClassName){
             case 'numberTask':
                 localStorage.setItem('numberTask', e.target.value)
                 setNumberTask(localStorage.getItem('numberTask'))
                 console.log(numberTask)
-               
                 console.log(jobTime)
-  
-              
                 break
             case 'head':
                 localStorage.setItem('head', e.target.value)
@@ -81,7 +97,7 @@ const Tasks = () => {
             
                 <label className='item'>
                      Номер задачи
-                    <input className='numberTask' type="text" value={numberTask} onChange={onChange}/>
+                    <input className='numberTask' type="text" value={data} onChange={onData}/>
                 </label>
                 <label className='item'>
                     Заголовок
