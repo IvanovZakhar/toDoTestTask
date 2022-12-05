@@ -3,6 +3,10 @@
     flex-direction: column;
 }
 
-.item{
-    margin-top: 20px;
+.task{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
 }
+
+

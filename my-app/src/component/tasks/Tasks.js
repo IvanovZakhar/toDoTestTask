@@ -5,9 +5,9 @@ import './Tasks.css'
 
 
 const Tasks = (props) => {
-    const [data, setData] = useState([
+    const [data, setData] = useState([])
 
-    ])
+   
 
     const [numberTask, setNumberTask] = useState('')
     const [head, setHead] = useState('')
@@ -17,51 +17,68 @@ const Tasks = (props) => {
     const [dateEnd, setDateEnd] = useState('')
     const [file, setFile] = useState('')
 
-    useEffect(()=>{
-        setNumberTask(localStorage.getItem('numberTask'))
-        setHead(localStorage.getItem('head'))
-        setDescr(localStorage.getItem('descr'))
-        setDateCreate(localStorage.getItem('date-create'))
+    // useEffect(()=>{
+    //     setNumberTask(localStorage.getItem('numberTask'))
+    //     setHead(localStorage.getItem('head'))
+    //     setDescr(localStorage.getItem('descr'))
+    //     setDateCreate(localStorage.getItem('date-create'))
         
-    }, [])
+    // }, [])
 
 
 
     useEffect(()=>{
        if( props.data[0]){
-        const {tasks} = props.data[0]
-        setData(tasks)
-        console.log(data)
+         setData(props.data[0].tasks)
        }
-       
-    
     }, [props])
 
-    const onData = (e) => {
-        const newData = data.map(item => {
-            console.log(item)
-           return item.numberTask 
-        })
-        setData([
-            newData
-        ])
-    }   
 
 
-    const onChange = (e) => {
-
+    const onChange = (e, id) => {
+        console.log(e.target)
+        console.log(id)
+        console.log(data)
         const eventClassName = e.target.className
         switch(eventClassName){
             case 'numberTask':
-                localStorage.setItem('numberTask', e.target.value)
-                setNumberTask(localStorage.getItem('numberTask'))
-                console.log(numberTask)
-                console.log(jobTime)
+                // localStorage.setItem('numberTask', e.target.value)
+                // setNumberTask(localStorage.getItem('numberTask'))
+                setData(
+                    ...data.map(item => {
+                        console.log(item)
+                        console.log(id) 
+                        if(item.id == id){
+                            console.log(item)
+                           const newArr = {...item, numberTask: e.target.value};
+                           console.log(newArr)
+                           console.log([...data.slice(0, id), newArr, ...data.slice(id + 1)])
+                            return([...data.slice(0, id), newArr, ...data.slice(id + 1)])
+                        }
+                       
+                    })
+                )
+
                 break
             case 'head':
-                localStorage.setItem('head', e.target.value)
-                setHead(localStorage.getItem('head'))
-                console.log(head)
+                // localStorage.setItem('head', e.target.value)
+                // setHead(localStorage.getItem('head'))
+                // console.log(head)
+
+                setData(
+                    ...data.map(item => {
+                        console.log(item)
+                        console.log(id) 
+                        if(item.id == id){
+                            console.log(item)
+                           const newArr = {item, head: e.target.value};
+                           console.log(newArr)
+                           console.log([...data.slice(0, id), newArr, ...data.slice(id + 1)])
+                            return([...data.slice(0, id), newArr, ...data.slice(id + 1)])
+                        }
+                       
+                    })
+                )
                 break
             case 'descr':
                 localStorage.setItem('descr', e.target.value)
@@ -91,13 +108,17 @@ const Tasks = (props) => {
                 setHead('')
         }
     }
-   
-    return(
-        <div className="Tasks">
-            
+
+    console.log(data)
+    const element = data.map(item => {
+        console.log(item)
+        const {numberTask, head, descr} = item
+        return(
+           
+            <div className='task' key={item.id} >
                 <label className='item'>
-                     Номер задачи
-                    <input className='numberTask' type="text" value={data} onChange={onData}/>
+                        Номер задачи
+                    <input className='numberTask' type="text" value={numberTask} onChange={(e) => onChange(e, item.id)} key={item.id}/>
                 </label>
                 <label className='item'>
                     Заголовок
@@ -107,13 +128,13 @@ const Tasks = (props) => {
                     Описание
                     <input className='descr' type="text" value={descr} onChange={onChange}/>
                 </label >
-                <label className='item'>
+                {/* <label className='item'>
                     Дата создания
                     <input className='date-create' type="date" value={dateCreate} onChange={onChange}/>
                 </label>
                 <label className='item'>
                     Время в работе
-                    {/* <input className='job-time' type="time" value={jobTime} onChange={onChange}/> */}
+                    <input className='job-time' type="time" value={jobTime} onChange={onChange}/>
                 </label>
                 <label className='item'>
                     Дата окончания
@@ -121,7 +142,7 @@ const Tasks = (props) => {
                 </label>
                 <label className='item'>
                     Приоритет
-                    {/* <input className='priority' type="text" value={head} onChange={onChange}/> */}
+                    <input className='priority' type="text" value={head} onChange={onChange}/>
                 </label>
                 <label className='item'>
                     Вложения
@@ -142,12 +163,21 @@ const Tasks = (props) => {
                 <label className='item'>
                     Коментарии
                     <div>Тут должны быть коментики каскадные</div>
-                </label>
-
-             
+                </label> */}
+            </div>
+          
+        )
+    })
+   
+    return(
+        <div className="Tasks">
+            
+            {element}
         </div>
     )
 }
+
+
 
 
 
