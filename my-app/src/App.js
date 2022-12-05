@@ -24,26 +24,36 @@ function App () {
 
    const [tasks, setTasks] = useState([]) 
 
-  //  useEffect(() => {
-  //   console.log(tasks)
-  //  }, [tasks])
+
   
 
     const onItem = (e) => {
-      const result = data.map(item => {
+      data.map(item => {
         if (item.id === e) {
           setTasks([item])
-        
         }
-      
       })
     }
  
 
+  const onChangeTask = (id, elem) => {
+    console.log(elem)
+    setData(data => {
+      console.log(data)
+      data[id].tasks = elem
+     
+      return [...data] 
+    })
+    
+
+  }
+
+    console.log(data)
+
   return (
     <div className="App">
-        <Projects data = {data} onItem={onItem}/>
-        <Tasks data={tasks}/>
+        <Projects data={data} onItem={onItem}/>
+        <Tasks data={tasks} onChangeTask={onChangeTask}/>
     </div>
   
   );

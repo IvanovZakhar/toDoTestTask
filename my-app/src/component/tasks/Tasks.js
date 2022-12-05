@@ -7,7 +7,7 @@ import './Tasks.css'
 const Tasks = (props) => {
     const [data, setData] = useState([])
 
-   
+    const {onChangeTask} = props;
 
     const [numberTask, setNumberTask] = useState('')
     const [head, setHead] = useState('')
@@ -36,56 +36,30 @@ const Tasks = (props) => {
 
 
     const onChange = (e, id) => {
-        console.log(e.target)
-        console.log(id)
-        console.log(data)
+        
         const eventClassName = e.target.className
         switch(eventClassName){
             case 'numberTask':
-                // localStorage.setItem('numberTask', e.target.value)
-                // setNumberTask(localStorage.getItem('numberTask'))
-                // setData(
-                //     ...data.map(item => {
-                //         console.log(item)
-                //         console.log(id) 
-                //         if(item.id == id){
-                //             console.log(item)
-                       
-                //            const newArr = {...item};
-                //            newArr.numberTask = e.target.value
-                      
-                //            console.log([...data.slice(0, id),  newArr, ...data.slice(id + 1)])
-                //             return([...data.slice(0, id), newArr, ...data.slice(id + 1)])
-                //         }
-                       
-                //     })
-                // )
-
                 setData(data => {
                     data[id] = { ...data[id], numberTask: `${e.target.value}` }
-                    // or even something like
-                    // posts[x].content = `This is index ${x}`
-                  
-                    return [...data] // clone the array
+                    console.log(...data)
+                    onChangeTask(props.data[0].id, [...data])
+                    
+                    return [...data] 
                   })
 
                 break
             case 'head':
-                // localStorage.setItem('head', e.target.value)
-                // setHead(localStorage.getItem('head'))
-                // console.log(head)
                 setData(data => {
-                    data[id] = { ...data[id], head: `${e.target.value}` }
-                    // or even something like
-                    // posts[x].content = `This is index ${x}`
-                  
-                    return [...data] // clone the array
+                    data[id] = { ...data[id], head: e.target.value }
+                    return [...data]
                   })
                 break
             case 'descr':
-                localStorage.setItem('descr', e.target.value)
-                setDescr(localStorage.getItem('descr'))
-                console.log(descr)
+                setData(data => {
+                    data[id] = { ...data[id], descr: e.target.value }
+                    return [...data]
+                  })
                 break
             case 'date-create':
                 localStorage.setItem('date-create', e.target.value)
@@ -111,13 +85,12 @@ const Tasks = (props) => {
         }
     }
 
-    console.log(data)
+
     const element = data.map(item => {
-        console.log(item)
         const {numberTask, head, descr} = item
         return(
            
-            <div className='task' key={item.id} >
+            <div className='task' key={item.id}  >
                 <label className='item'>
                         Номер задачи
                     <input className='numberTask' type="text" value={numberTask} onChange={(e) => onChange(e, item.id)} key={item.id}/>
@@ -128,7 +101,7 @@ const Tasks = (props) => {
                 </label>
                 <label className='item'>
                     Описание
-                    <input className='descr' type="text" value={descr} onChange={onChange}/>
+                    <input className='descr' type="text" value={descr} onChange={(e) => onChange(e, item.id)}/>
                 </label >
                 {/* <label className='item'>
                     Дата создания
@@ -173,8 +146,8 @@ const Tasks = (props) => {
    
     return(
         <div className="Tasks">
-            
             {element}
+          <button className='btn addATask' >Добавить задачу</button>
         </div>
     )
 }
