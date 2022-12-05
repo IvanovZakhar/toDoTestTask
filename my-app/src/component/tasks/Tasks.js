@@ -44,41 +44,43 @@ const Tasks = (props) => {
             case 'numberTask':
                 // localStorage.setItem('numberTask', e.target.value)
                 // setNumberTask(localStorage.getItem('numberTask'))
-                setData(
-                    ...data.map(item => {
-                        console.log(item)
-                        console.log(id) 
-                        if(item.id == id){
-                            console.log(item)
-                           const newArr = {...item, numberTask: e.target.value};
-                           console.log(newArr)
-                           console.log([...data.slice(0, id), newArr, ...data.slice(id + 1)])
-                            return([...data.slice(0, id), newArr, ...data.slice(id + 1)])
-                        }
+                // setData(
+                //     ...data.map(item => {
+                //         console.log(item)
+                //         console.log(id) 
+                //         if(item.id == id){
+                //             console.log(item)
                        
-                    })
-                )
+                //            const newArr = {...item};
+                //            newArr.numberTask = e.target.value
+                      
+                //            console.log([...data.slice(0, id),  newArr, ...data.slice(id + 1)])
+                //             return([...data.slice(0, id), newArr, ...data.slice(id + 1)])
+                //         }
+                       
+                //     })
+                // )
+
+                setData(data => {
+                    data[id] = { ...data[id], numberTask: `${e.target.value}` }
+                    // or even something like
+                    // posts[x].content = `This is index ${x}`
+                  
+                    return [...data] // clone the array
+                  })
 
                 break
             case 'head':
                 // localStorage.setItem('head', e.target.value)
                 // setHead(localStorage.getItem('head'))
                 // console.log(head)
-
-                setData(
-                    ...data.map(item => {
-                        console.log(item)
-                        console.log(id) 
-                        if(item.id == id){
-                            console.log(item)
-                           const newArr = {item, head: e.target.value};
-                           console.log(newArr)
-                           console.log([...data.slice(0, id), newArr, ...data.slice(id + 1)])
-                            return([...data.slice(0, id), newArr, ...data.slice(id + 1)])
-                        }
-                       
-                    })
-                )
+                setData(data => {
+                    data[id] = { ...data[id], head: `${e.target.value}` }
+                    // or even something like
+                    // posts[x].content = `This is index ${x}`
+                  
+                    return [...data] // clone the array
+                  })
                 break
             case 'descr':
                 localStorage.setItem('descr', e.target.value)
@@ -122,7 +124,7 @@ const Tasks = (props) => {
                 </label>
                 <label className='item'>
                     Заголовок
-                    <input className='head' type="text" value={head} onChange={onChange}/>
+                    <input className='head' type="text" value={head} onChange={(e) => onChange(e, item.id)}/>
                 </label>
                 <label className='item'>
                     Описание
