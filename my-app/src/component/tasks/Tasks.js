@@ -6,7 +6,6 @@ import './Tasks.css'
 
 const Tasks = (props) => {
     const [data, setData] = useState([])
-
     const {onChangeTask} = props;
 
     const [numberTask, setNumberTask] = useState('')
@@ -17,21 +16,33 @@ const Tasks = (props) => {
     const [dateEnd, setDateEnd] = useState('')
     const [file, setFile] = useState('')
 
-    // useEffect(()=>{
-    //     setNumberTask(localStorage.getItem('numberTask'))
-    //     setHead(localStorage.getItem('head'))
-    //     setDescr(localStorage.getItem('descr'))
-    //     setDateCreate(localStorage.getItem('date-create'))
-        
-    // }, [])
 
   
-
+// Устанавливаем задание пришедшие по клику в нашу data
     useEffect(()=>{
        if( props.data[0]){
-         setData(props.data[0].tasks)
+        setData(props.data[0].tasks)
+    
        }
-    }, [props])
+    }, [props.data])
+
+// Добавляем новое задание 
+const OnAddTask = () => {
+    const elem = 
+        {   
+            id: props.data[0].tasks.length, 
+            numberTask: '', 
+            head: '', 
+            descr: '', 
+            dateCreate: '', 
+            jobTime: '', 
+            dataEnd: '', 
+            file: ''
+        }
+    setData(data => {
+        return [...data, elem]
+    })
+}
    
 
 
@@ -42,7 +53,6 @@ const Tasks = (props) => {
             case 'numberTask':
                 setData(data => {
                     data[id] = { ...data[id], numberTask: `${e.target.value}` }
-                    console.log([...data])
                     return [...data] 
                   })
 
@@ -83,7 +93,7 @@ const Tasks = (props) => {
         }
     }
 
-
+console.log(data)
     const element = data.map(item => {
         const {numberTask, head, descr} = item
         return(
@@ -146,7 +156,7 @@ const Tasks = (props) => {
     return(
         <div className="Tasks">
             {element}
-          <button className='btn addATask' >Добавить задачу</button>
+          <button className='btn-addATask' onClick={OnAddTask}>Добавить задачу</button>
         </div>
     )
 }
