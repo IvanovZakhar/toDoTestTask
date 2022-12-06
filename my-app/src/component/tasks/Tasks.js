@@ -25,14 +25,14 @@ const Tasks = (props) => {
         
     // }, [])
 
-
+  
 
     useEffect(()=>{
        if( props.data[0]){
          setData(props.data[0].tasks)
        }
     }, [props])
-
+   
 
 
     const onChange = (e, id) => {
@@ -42,9 +42,7 @@ const Tasks = (props) => {
             case 'numberTask':
                 setData(data => {
                     data[id] = { ...data[id], numberTask: `${e.target.value}` }
-                    console.log(...data)
-                    onChangeTask(props.data[0].id, [...data])
-                    
+                    console.log([...data])
                     return [...data] 
                   })
 
@@ -139,6 +137,7 @@ const Tasks = (props) => {
                     Коментарии
                     <div>Тут должны быть коментики каскадные</div>
                 </label> */}
+                <button onClick={() => onChangeTask(props.data[0].id, [...data])}>Сохранить задание</button>
             </div>
           
         )

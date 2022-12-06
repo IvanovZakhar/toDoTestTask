@@ -4,8 +4,8 @@ import './Projects.css'
 
 const Projects = (props) => {
    
-    const {data, onItem} = props;
-
+    const {onItem} = props;
+    const data = JSON.parse( localStorage.data );
       const element = data.map(item => {
         const {projectName, id} = item
         return(
