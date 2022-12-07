@@ -28,13 +28,20 @@ const Tasks = (props) => {
 
 // Добавляем новое задание 
 const OnAddTask = () => {
+   
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+
     const elem = 
         {   
             id: props.data[0].tasks.length, 
             numberTask: '', 
             head: '', 
             descr: '', 
-            dateCreate: '', 
+            dateCreate:  today , 
             jobTime: '', 
             dataEnd: '', 
             file: ''
@@ -44,7 +51,17 @@ const OnAddTask = () => {
     })
 }
    
+// console.log(data.getDate(); data.getMonth(); getFullYear();)
 
+    // const addComment = (e) => {
+    //     console.log(data)
+    //     console.log(e.target.parentNode.children[1].value)
+    //     console.log(e.target.parentNode.children[2].value)
+    //     const newComment = 
+    //     {
+    //         id: data
+    //     }
+    // }
 
     const onChange = (e, id) => {
         
@@ -65,15 +82,15 @@ const OnAddTask = () => {
                 break
             case 'descr':
                 setData(data => {
-                    data[id] = { ...data[id], descr: e.target.value }
+                    data[id] = { ...data[id], dateCreate: e.target.value }
                     return [...data]
                   })
                 break
             case 'date-create':
-                localStorage.setItem('date-create', e.target.value)
-                setDateCreate(localStorage.getItem('date-create'))
-
-                console.log(dateCreate)
+                setData(data => {
+                    data[id] = { ...data[id], descr: e.target.value }
+                    return [...data]
+                  })
                 break
             case 'job-time':
                 
@@ -93,9 +110,18 @@ const OnAddTask = () => {
         }
     }
 
-console.log(data)
+
     const element = data.map(item => {
-        const {numberTask, head, descr} = item
+        const {numberTask, head, descr, dateCreate, comments} = item
+        const elementComments = comments ? comments.map(item =>{
+            const {id, name, comment} = item;
+           return(
+         <div className='comment' key={id}>
+            <h6>{name}</h6>
+            <span>{comment}</span>
+         </div>
+           )
+        }): null;
         return(
            
             <div className='task' key={item.id}  >
@@ -111,11 +137,11 @@ console.log(data)
                     Описание
                     <input className='descr' type="text" value={descr} onChange={(e) => onChange(e, item.id)}/>
                 </label >
-                {/* <label className='item'>
-                    Дата создания
-                    <input className='date-create' type="date" value={dateCreate} onChange={onChange}/>
-                </label>
                 <label className='item'>
+                    Дата создания
+                    <div>{dateCreate}</div>
+                </label>
+                {/* <label className='item'>
                     Время в работе
                     <input className='job-time' type="time" value={jobTime} onChange={onChange}/>
                 </label>
@@ -142,17 +168,22 @@ console.log(data)
                 <label className='item'>
                     Подзадачи
                     <div>Тут должна быть возможность добавлять подзадачи</div>
-                </label>
-                <label className='item'>
-                    Коментарии
-                    <div>Тут должны быть коментики каскадные</div>
                 </label> */}
+                {/* <div className='item'>
+                    {elementComments}
+                    <div >
+                        <label>Добавить коментарий</label>
+                        <input type="text" name="name" placeholder="Ваше имя"/>
+                        <input type="text" name="comment" placeholder="Ваше коментарий"/>
+                        <button onClick={(e)=> addComment(e)}>Добавить</button>
+                    </div>
+                </div> */}
                 <button onClick={() => onChangeTask(props.data[0].id, [...data])}>Сохранить задание</button>
             </div>
           
         )
     })
-   
+  
     return(
         <div className="Tasks">
             {element}

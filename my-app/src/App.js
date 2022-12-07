@@ -27,9 +27,9 @@ function App () {
   //   [
   //           {projectName: 'VK',
   //            id: 0,
-  //            tasks: [{id: 0, numberTask: 1, head: 'заголовочек', descr: 'Это тестовое задание VK №1', dateCreate: '', jobTime: '', dataEnd: '', file: ''},
-  //                   {id: 1, numberTask: 1, head: 'заголовочек', descr: 'Это тестовое задание VK №2', dateCreate: '', jobTime: '', dataEnd: '', file: ''},
-  //                   {id: 2, numberTask: 1, head: 'заголовочек', descr: 'Это тестовое задание VK №2', dateCreate: '', jobTime: '', dataEnd: '', file: ''}] 
+  //            tasks: [{id: 0, numberTask: 1, head: 'заголовочек', descr: 'Это тестовое задание VK №1', dateCreate: '', jobTime: '', dataEnd: '', file: '', comments:[{id:0, name:'Ivan', comment:'жесть'}]},
+  //                   {id: 1, numberTask: 1, head: 'заголовочек', descr: 'Это тестовое задание VK №2', dateCreate: '', jobTime: '', dataEnd: '', file: '', coments:[]},
+  //                   {id: 2, numberTask: 1, head: 'заголовочек', descr: 'Это тестовое задание VK №2', dateCreate: '', jobTime: '', dataEnd: '', file: '', coments:[]}] 
   //           },
   //           {projectName: 'YouTube',
   //            id: 1,
@@ -39,7 +39,6 @@ function App () {
   //         ]
 
   // )
-
 
 
   // Сравниваем id и отправляем, то что совпадает по клику
