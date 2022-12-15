@@ -1,5 +1,6 @@
-import { useState} from 'react';
+
 import {Link} from 'react-router-dom';
+
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import './Projects.css'
 
@@ -15,7 +16,7 @@ const Projects = (props) => {
 
     const addProject = (e) => {
         const projects = JSON.parse( localStorage.data );
-        console.log(JSON.parse( localStorage.data ))
+      
         const elem = {
             projectName: e.target.form.children[1].value,
             id: projects.length,
@@ -28,25 +29,31 @@ const Projects = (props) => {
 
     }
     
-   function onProject () {
+    function onProject () {
 
       
-         const projects = localStorage.data ? JSON.parse( localStorage.data ) : localStorage.data = JSON.stringify( [{id: 0 , projectName: 'Добавьте свой первый проект'}]);
-       
-        return projects.map(item => {
-                const {projectName, id} = item
-                const linkProject = "/" + cyrillicToTranslit.transform(projectName , '_').toLowerCase()
-                return(
-                    <Link to={linkProject} key= {id} onClick={ () => onItem(id)}>
-                        <span >{projectName}</span> 
-                    </Link>      
-                )
-            })
+        const projects = localStorage.data ? JSON.parse( localStorage.data ) : localStorage.data = JSON.stringify( [{id: 0 , projectName: 'Добавьте свой первый проект'}]);
+      
+       return projects.map(item => {
+               const {projectName, id, tasks} = item
+               const linkProject = "/" + cyrillicToTranslit.transform(projectName , '_').toLowerCase()
         
-    }
+               return(
+       
+     
+                           <Link to={linkProject} key={id} onClick={ () => onItem(id)} className="project">
+                               <span >{projectName}</span> 
+                           </Link>
+
+                     
+               )
+           })
+       
+   }
+    
 
     const element = onProject()
-    console.log(element )
+
 
     return (
         <div className="Projects">

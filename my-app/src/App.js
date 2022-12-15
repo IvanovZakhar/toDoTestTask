@@ -1,8 +1,8 @@
 import { useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Tasks from './component/tasks/Tasks';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import Projects from './component/project/Projects';
-import Tasks from './component/tasks/Tasks';
 import './App.css';
 
 
@@ -64,23 +64,48 @@ function App () {
 // Сохраняем задание через в localstorage
 
   const onChangeTask = (id, elem) => {
+    console.log(id)
+    console.log(elem)
     const data = JSON.parse( localStorage.data )
     data[id].tasks = elem
     localStorage.data = JSON.stringify([...data]) 
     console.log(data)
   }
 
+  function getRoute () {
+
+      
+    const projects = localStorage.data ? JSON.parse( localStorage.data ) : localStorage.data = JSON.stringify( [{id: 0 , projectName: 'Добавьте свой первый проект'}]);
+  
+   return projects.map(item => {
+           const {projectName, id} = item
+           const linkProject = "/" + cyrillicToTranslit.transform(projectName , '_').toLowerCase()
+    
+           return(
+                     
+             <Route key={id} path={linkProject} element={<Tasks data={item} onChangeTask={onChangeTask}/>}/>
+                    
+                 
+                 
+           )
+       })
+   
+}
+
+const elem = getRoute()
+
 
 
   return (
-    <Router>
-      <div className="app">
+    <div className="app">
+      <Router>
         <Routes>
-          <Route path="/" element={<Projects onItem={onItem} data={project}/> }/>
-          <Route path={localStorage.linkProject} element={<Tasks data={tasks} onChangeTask={onChangeTask}/>}/>
+           <Route path="/" element={<Projects onItem={onItem} data={project}/> }/>
+           {elem}
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
+
   );
 }
 

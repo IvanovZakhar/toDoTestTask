@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import './Tasks.css'
 
 
@@ -20,11 +20,8 @@ const Tasks = (props) => {
   
 // Устанавливаем задание пришедшие по клику в нашу data
     useEffect(()=>{
-        console.log(props.data)
-       if( props.data){
-        setData(props.data[0].tasks)
-       }
-    }, [props.data])
+        setData(props.data.tasks)
+    }, [])
 
 // Добавляем новое задание 
 const OnAddTask = () => {
@@ -37,7 +34,7 @@ const OnAddTask = () => {
 
     const elem = 
         {   
-            id: props.data[0].tasks.length, 
+            id: props.data.tasks.length, 
             numberTask: '', 
             head: '', 
             descr: '', 
@@ -51,17 +48,7 @@ const OnAddTask = () => {
     })
 }
    
-// console.log(data.getDate(); data.getMonth(); getFullYear();)
-
-    // const addComment = (e) => {
-    //     console.log(data)
-    //     console.log(e.target.parentNode.children[1].value)
-    //     console.log(e.target.parentNode.children[2].value)
-    //     const newComment = 
-    //     {
-    //         id: data
-    //     }
-    // }
+ 
 
     const onChange = (e, id) => {
         
@@ -178,7 +165,7 @@ const OnAddTask = () => {
                         <button onClick={(e)=> addComment(e)}>Добавить</button>
                     </div>
                 </div> */}
-                <button onClick={() => onChangeTask(props.data[0].id, [...data])}>Сохранить задание</button>
+                <button onClick={() => onChangeTask(props.data.id, [...data])}>Сохранить задание</button>
             </div>
           
         )
