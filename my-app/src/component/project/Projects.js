@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState} from 'react';
+import {Link} from 'react-router-dom';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import './Projects.css'
 
 const Projects = (props) => {
-    
+    const cyrillicToTranslit = new CyrillicToTranslit();
+   
     const {onItem} = props;
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -32,11 +35,11 @@ const Projects = (props) => {
        
         return projects.map(item => {
                 const {projectName, id} = item
+                const linkProject = "/" + cyrillicToTranslit.transform(projectName , '_').toLowerCase()
                 return(
-                    <div className="project-item" key={id} onClick={()=>onItem(id)}>
-                        {projectName}
-        
-                    </div>
+                    <Link to={linkProject} key= {id} onClick={ () => onItem(id)}>
+                        <span >{projectName}</span> 
+                    </Link>      
                 )
             })
         

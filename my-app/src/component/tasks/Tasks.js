@@ -20,9 +20,9 @@ const Tasks = (props) => {
   
 // Устанавливаем задание пришедшие по клику в нашу data
     useEffect(()=>{
-       if( props.data[0]){
+        console.log(props.data)
+       if( props.data){
         setData(props.data[0].tasks)
-    
        }
     }, [props.data])
 

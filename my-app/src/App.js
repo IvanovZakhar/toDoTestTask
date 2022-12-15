@@ -1,4 +1,6 @@
-import { Component, useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import Projects from './component/project/Projects';
 import Tasks from './component/tasks/Tasks';
 import './App.css';
@@ -7,6 +9,8 @@ import './App.css';
 
 
 function App () {
+  const cyrillicToTranslit = new CyrillicToTranslit();
+  const [project, setProject] = useState()
   const maxId = 1
   // const [data, setData] = useState([
   //       {projectName: 'VK',
@@ -21,7 +25,7 @@ function App () {
   //      },  
        
   //     ]);
-  const [tasks, setTasks] = useState([]) 
+  const [tasks, setTasks] = useState() 
   // localStorage.data = JSON.stringify(
     
   //   [
@@ -43,13 +47,19 @@ function App () {
 
   // Сравниваем id и отправляем, то что совпадает по клику
     const onItem = (e) => {
+      console.log(e)
       const data =  JSON.parse( localStorage.data )
       data.map(item => {
         if (item.id === e) {
           setTasks([item])
+          localStorage.linkProject = "/" + cyrillicToTranslit.transform(item.projectName , '_').toLowerCase() 
+          
         }
       })
+   
     }
+
+
  
 // Сохраняем задание через в localstorage
 
@@ -57,14 +67,20 @@ function App () {
     const data = JSON.parse( localStorage.data )
     data[id].tasks = elem
     localStorage.data = JSON.stringify([...data]) 
+    console.log(data)
   }
 
+
+
   return (
-    <div className="App">
-        <Projects onItem={onItem}/>
-        <Tasks data={tasks} onChangeTask={onChangeTask}/>
-    </div>
-  
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Projects onItem={onItem} data={project}/> }/>
+          <Route path={localStorage.linkProject} element={<Tasks data={tasks} onChangeTask={onChangeTask}/>}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
