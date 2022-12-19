@@ -128,7 +128,7 @@ const OnAddTask = () => {
                         <input className='descr' type="text" value={descr} onChange={(e) => onChange(e, item.id)}/>
                     </label >
                     <label className='item'>
-                        Дата созданияzzz
+                        Дата создания
                         <div>{dateCreate}</div>
                     </label>
                     {/* <label className='item'>

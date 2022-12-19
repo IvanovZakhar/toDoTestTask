@@ -1,10 +1,10 @@
 import { useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import  {Droppable } from 'react-beautiful-dnd';
 import Tasks from './component/tasks/Tasks';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import Projects from './component/project/Projects';
 import './App.css';
-
 
 
 
@@ -80,10 +80,14 @@ function App () {
    return projects.map(item => {
            const {projectName, id} = item
            const linkProject = "/" + cyrillicToTranslit.transform(projectName , '_').toLowerCase()
-    
+           console.log(item)
            return(
                      
-             <Route key={id} path={linkProject} element={<Tasks data={item} onChangeTask={onChangeTask}/>}/>
+             <Route key={id} path={linkProject} element={
+       
+                  <Tasks data={item} onChangeTask={onChangeTask}/>
+           
+            }/>
                     
                  
                  
@@ -98,8 +102,10 @@ const elem = getRoute()
 
   return (
     <div className="app">
+          
       <Router>
         <Routes>
+    
            <Route path="/" element={<Projects onItem={onItem} data={project}/> }/>
            {elem}
         </Routes>
