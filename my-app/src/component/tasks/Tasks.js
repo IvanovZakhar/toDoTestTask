@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from 'react';
+import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 import redBgTask from '../../img/red.png';
+
 import './Tasks.css';
 
 
@@ -110,68 +112,75 @@ const OnAddTask = () => {
          </div>
            )
         }): null;
+        console.log(item.id)
         return(
            
-            <div className='task' key={item.id} >
-                <div className='itemTask'>
-                    <label className='item'>
-                            Номер задачи
-                        
-                        <input className='numberTask' type="text" value={numberTask} onChange={(e) => onChange(e, item.id)} key={item.id}/>
-                    </label>
-                    <label className='item'>
-                        Заголовок
-                        <input className='head' type="text" value={head} onChange={(e) => onChange(e, item.id)}/>
-                    </label>
-                    <label className='item'>
-                        Описание
-                        <input className='descr' type="text" value={descr} onChange={(e) => onChange(e, item.id)}/>
-                    </label >
-                    <label className='item'>
-                        Дата создания
-                        <div>{dateCreate}</div>
-                    </label>
-                    {/* <label className='item'>
-                        Время в работе
-                        <input className='job-time' type="time" value={jobTime} onChange={onChange}/>
-                    </label>
-                    <label className='item'>
-                        Дата окончания
-                        <input className='date-end' type="date" value={dateEnd} onChange={onChange}/>
-                    </label>
-                    <label className='item'>
-                        Приоритет
-                        <input className='priority' type="text" value={head} onChange={onChange}/>
-                    </label>
-                    <label className='item'>
-                        Вложения
-                        <input className='file' type="file" value={file} onChange={onChange}/>
-                    </label>
-                    <label className='item'>
-                        Текущий статус
-                        <div className='status'>
-                            <h5>Queue</h5> 
-                            <h5>Development</h5> 
-                            <h5>Done</h5>
-                        </div>
-                    </label>
-                    <label className='item'>
-                        Подзадачи
-                        <div>Тут должна быть возможность добавлять подзадачи</div>
-                    </label> */}
-                    {/* <div className='item'>
-                        {elementComments}
-                        <div >
-                            <label>Добавить коментарий</label>
-                            <input type="text" name="name" placeholder="Ваше имя"/>
-                            <input type="text" name="comment" placeholder="Ваше коментарий"/>
-                            <button onClick={(e)=> addComment(e)}>Добавить</button>
-                        </div>
-                    </div> */}
-                    <button className='saveTaskBtn' onClick={() => onChangeTask(props.data.id, [...data])}>Сохранить задание</button>
-                </div>
+            <DragDropContainer targetKey={item.id} key={item.id} onDrop={(e) => console.log(e.target) } >
+                   
+                    <div className='task'  >
+                                <div className='itemTask'>
+                                    <label className='item'>
+                                            Номер задачи
+                                        
+                                        <input className='numberTask' type="text" value={numberTask} onChange={(e) => onChange(e, item.id)} key={item.id}/>
+                                    </label>
+                                    <label className='item'>
+                                        Заголовок
+                                        <input className='head' type="text" value={head} onChange={(e) => onChange(e, item.id)}/>
+                                    </label>
+                                    <label className='item'>
+                                        Описание
+                                        <input className='descr' type="text" value={descr} onChange={(e) => onChange(e, item.id)}/>
+                                    </label >
+                                    <label className='item'>
+                                        Дата создания
+                                        <div>{dateCreate}</div>
+                                    </label>
+                                    {/* <label className='item'>
+                                        Время в работе
+                                        <input className='job-time' type="time" value={jobTime} onChange={onChange}/>
+                                    </label>
+                                    <label className='item'>
+                                        Дата окончания
+                                        <input className='date-end' type="date" value={dateEnd} onChange={onChange}/>
+                                    </label>
+                                    <label className='item'>
+                                        Приоритет
+                                        <input className='priority' type="text" value={head} onChange={onChange}/>
+                                    </label>
+                                    <label className='item'>
+                                        Вложения
+                                        <input className='file' type="file" value={file} onChange={onChange}/>
+                                    </label>
+                                    <label className='item'>
+                                        Текущий статус
+                                        <div className='status'>
+                                            <h5>Queue</h5> 
+                                            <h5>Development</h5> 
+                                            <h5>Done</h5>
+                                        </div>
+                                    </label>
+                                    <label className='item'>
+                                        Подзадачи
+                                        <div>Тут должна быть возможность добавлять подзадачи</div>
+                                    </label> */}
+                                    {/* <div className='item'>
+                                        {elementComments}
+                                        <div >
+                                            <label>Добавить коментарий</label>
+                                            <input type="text" name="name" placeholder="Ваше имя"/>
+                                            <input type="text" name="comment" placeholder="Ваше коментарий"/>
+                                            <button onClick={(e)=> addComment(e)}>Добавить</button>
+                                        </div>
+                                    </div> */}
+                                    <button className='saveTaskBtn' onClick={() => onChangeTask(props.data.id, [...data])}>Сохранить задание</button>
+                                </div>
+                            
+                            </div>
+                 
                
-            </div>
+                        
+            </DragDropContainer>
           
         )
     })
@@ -179,8 +188,10 @@ const OnAddTask = () => {
     return(
         <div className="Tasks">
             {element}
-          <button className='btn-addATask' onClick={OnAddTask}>Добавить задачу</button>
-     
+         
+       
+              <button className='btn-addATask' onClick={OnAddTask}>Добавить задачу</button>
+         
         </div>
     )
 }

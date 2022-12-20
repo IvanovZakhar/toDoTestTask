@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import  {Droppable } from 'react-beautiful-dnd';
+import {  DropTarget } from 'react-drag-drop-container';
 import Tasks from './component/tasks/Tasks';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import Projects from './component/project/Projects';
@@ -80,12 +80,15 @@ function App () {
    return projects.map(item => {
            const {projectName, id} = item
            const linkProject = "/" + cyrillicToTranslit.transform(projectName , '_').toLowerCase()
-           console.log(item)
+          
            return(
                      
              <Route key={id} path={linkProject} element={
-       
-                  <Tasks data={item} onChangeTask={onChangeTask}/>
+              <DropTarget targetKey={id}  onDragEnter={(e) => {console.log(e.target)}}  onDragLeave={(e) => {console.log(e.target)}}>
+                
+                <Tasks data={item} onChangeTask={onChangeTask}/>
+              </DropTarget>
+                 
            
             }/>
                     
