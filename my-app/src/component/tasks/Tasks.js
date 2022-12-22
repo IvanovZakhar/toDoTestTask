@@ -112,12 +112,11 @@ const OnAddTask = () => {
          </div>
            )
         }): null;
-        console.log(item.id)
+ 
         return(
            
-            <DragDropContainer targetKey={item.id} key={item.id} onDrop={(e) => console.log(e.target) } >
-                   
-                    <div className='task'  >
+
+                    <div className='task' key={item.id}>
                                 <div className='itemTask'>
                                     <label className='item'>
                                             Номер задачи
@@ -177,22 +176,34 @@ const OnAddTask = () => {
                                 </div>
                             
                             </div>
-                 
+                  
                
                         
-            </DragDropContainer>
+         
           
         )
     })
   
+
+    
     return(
+    <>
         <div className="Tasks">
-            {element}
-         
-       
-              <button className='btn-addATask' onClick={OnAddTask}>Добавить задачу</button>
-         
+        <DropTarget targetKey="foo" onDragEnter={(e)=>console.log(e.target)}>
+            <div className="tasks-container">
+                    {element}
+            </div>
+        </DropTarget>
+     
+        </div>  
+        <div className='btn-addATask'>
+        <DragDropContainer targetKey="foo" dragData={(e)=> console.log(e.target)} >
+            <button  onClick={OnAddTask}>Добавить задачу</button>
+        </DragDropContainer>
         </div>
+        
+    </>
+    
     )
 }
 

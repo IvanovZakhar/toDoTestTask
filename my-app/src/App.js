@@ -84,10 +84,10 @@ function App () {
            return(
                      
              <Route key={id} path={linkProject} element={
-              <DropTarget targetKey={id}  onDragEnter={(e) => {console.log(e.target)}}  onDragLeave={(e) => {console.log(e.target)}}>
+ 
                 
                 <Tasks data={item} onChangeTask={onChangeTask}/>
-              </DropTarget>
+          
                  
            
             }/>
@@ -109,8 +109,13 @@ const elem = getRoute()
       <Router>
         <Routes>
     
-           <Route path="/" element={<Projects onItem={onItem} data={project}/> }/>
+           <Route path="/" element={
+          
+           <Projects onItem={onItem} data={project}/> 
+
+           }/>
            {elem}
+
         </Routes>
       </Router>
     </div>

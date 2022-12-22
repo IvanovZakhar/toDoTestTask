@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+
+.btn-addATask{
+  display: flex;
+  height: 100px;
+  width: 50px;
+  top: 100px;
+  right: 100px;
+}
