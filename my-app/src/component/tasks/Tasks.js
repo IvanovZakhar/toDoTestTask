@@ -27,8 +27,8 @@ const Tasks = (props) => {
     }, [])
 
 // Добавляем новое задание 
-const OnAddTask = () => {
-   
+const OnAddTask = (e) => {
+   console.log(e.sourceElem.childNodes[0].childNodes[1].childNodes[1].value)   
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -38,9 +38,9 @@ const OnAddTask = () => {
     const elem = 
         {   
             id: props.data.tasks.length, 
-            numberTask: '', 
-            head: '', 
-            descr: '', 
+            numberTask: e.sourceElem.childNodes[0].childNodes[1].childNodes[1].value, 
+            head: e.sourceElem.childNodes[0].childNodes[2].childNodes[1].value, 
+            descr: e.sourceElem.childNodes[0].childNodes[3].childNodes[1].value, 
             dateCreate:  today , 
             jobTime: '', 
             dataEnd: '', 
@@ -189,16 +189,37 @@ const OnAddTask = () => {
     return(
     <>
         <div className="Tasks">
-        <DropTarget targetKey="foo" onDragEnter={(e)=>console.log(e.target)}>
+        <DropTarget 
+            targetKey="foo" 
+            onHit={(e)=>OnAddTask(e)}>
+
             <div className="tasks-container">
                     {element}
             </div>
+
         </DropTarget>
      
         </div>  
         <div className='btn-addATask'>
-        <DragDropContainer targetKey="foo" dragData={(e)=> console.log(e.target)} >
-            <button  onClick={OnAddTask}>Добавить задачу</button>
+        <DragDropContainer targetKey="foo" 
+            dragData={(e)=> console.log(e.target)} >
+            <div className='addedTask'  
+                 >
+                    Добавить новую задачу 
+                        <label className='item'>
+                                Номер задачи
+                            
+                            <input className='numberTask' type="text"/>
+                        </label>
+                        <label className='item'>
+                            Заголовок
+                            <input className='head' type="text" />
+                        </label>
+                        <label className='item'>
+                            Описание
+                            <input className='descr' type="text" />
+                        </label >
+            </div>
         </DragDropContainer>
         </div>
         

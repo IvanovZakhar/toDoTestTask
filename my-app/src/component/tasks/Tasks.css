@@ -3,7 +3,6 @@
 }
 
 .tasks-container{
-    position: relative;
     display: block;
     width: 1600px;
     height: 1050px;
@@ -24,6 +23,8 @@
     background-position: top;
 }
 
+
+
 .itemTask{
     display: flex;
     flex-direction: column;
@@ -36,10 +37,5 @@
     height: 40px;
 }
 
-.btn-addATask{
-    position: absolute;
-    top: 100px;
-    right: 100px;
-}
 
 

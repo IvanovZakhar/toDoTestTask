@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: relative;
 }
 
 .App-logo {
@@ -38,10 +39,17 @@
 }
 
 
-.btn-addATask{
+.addedTask{
   display: flex;
-  height: 100px;
-  width: 50px;
-  top: 100px;
-  right: 100px;
+  flex-direction: column;
+  position: absolute;
+  bottom: 10px;
+  left: 1750px;
+  width: 300px;
+  height: 300px;
+  padding: 60px 0 0 20px ;
+  background:  url('./img/red.png') no-repeat;
+  background-size: 300px 300px;
+  background-position: top;
+
 }
